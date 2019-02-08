@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personøvelse</title>
+</head>
+
+<body>
+    <div id="personliste"></div>
+    
+    <style>
+        #personliste{
+            display: grid;   
+            grid-template-columns: auto;
+        }
+        img{
+            width: 50%;
+            height: 50%;
+            
+        }
+        
+        .personliste{
+            border: 1px solid black;
+            margin: 1vw;
+            text-align: center;
+            background-color: yellow;
+        }
+        
+        @media only screen and (min-width: 500px){
+            #personliste{
+                grid-template-columns: auto auto;
+            }
+        }
+        
+        @media only screen and (min-width: 800px){
+            #personliste{
+                grid-template-columns: auto auto;
+            }
+        }
+        
+        
+        
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded",load);
+        
+        let personer =[];
+        
+        async function load(){
+            
+            const myJson = await fetch("personliste.json")
+            console.log(personliste.json)
+        
+        personer = await myJson.json();
+        console.log(personer);
+        
+        visPersoner();
+        }
+        
+        function visPersoner(){
+           let dest = document.querySelector("#personliste");
+            personer.forEach(personer => {
+                dest.innerHTML += `<div class="personliste"> 
+                    <h3>${personer.navn}</h3> 
+                    <p>GitHub: <a href="http://github.com/${personer.github}" target="_blank">${personer.github}</a>  </p> 
+                    <img src=${personer.billede} alt=${personer.navn}></div>`;
+            })
+        }
+    </script>
+</body>
+</html>
