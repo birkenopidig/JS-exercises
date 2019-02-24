@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+<body>
+    <!-----------------CSS------------------->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url("https://previews.123rf.com/images/mzwonko/mzwonko1507/mzwonko150700032/42748315-seamless-french-travel-pattern-paris-tourist-background-with-architecture-buildings-and-landmarks-.jpg")
+        }
+        
+        main{
+            margin-top: 10px;
+        }
+        
+
+        #meals {
+            display: grid;
+            grid-template-columns: auto;
+            grid-gap: 2vw;
+            max-width: 90vw;
+            margin: 0 auto;
+        }
+
+        #meals img {
+            width: 100%;
+        }
+
+        #overlay img {
+            width: 100%;
+        }
+
+        
+        .meal:nth-of-type(even) {
+            background-color: #a5dbff ;
+        }
+
+        .info {
+            background-color: black;
+            color: white;
+            padding: 1vw;
+            margin: 1vw;
+            border: 1px solid #393939;
+        }
+
+        .info:hover {
+            transform: scale(1.05);
+            background-color: white;
+            color: #393939;
+        }
+
+        h2 {
+            margin: 2vw 1vw;
+        }
+
+        p {
+            margin: 3vw 1vw;
+        }
+
+        .meal {
+            margin: 2vh 0;
+            box-shadow: 0 3px 10px black;
+        }
+
+        /**************** Popup **************/
+        #overlay {
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.750);
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            color: white;
+            display: none;
+        }
+
+        #indhold {
+            width: 70vw;
+            height: 60vh;
+            margin: 15vh auto;
+            background-color: rgba(0, 0, 0, 0.50);
+            color: white;
+            border: 5px solid #537491 ;
+            padding: 30px 5px;
+            overflow: scroll;
+        }
+
+        .popup-billede {
+            text-align: center;
+        }
+
+        #indhold img {
+            max-width: 60vw;
+        }
+
+        .popup-tekst {
+            margin: 0 20px;
+        }
+
+        .popup-tekst h3 {
+            margin: 0 5px;
+        }
+
+        #luk {
+            position: fixed;
+            right: 14vw;
+            top: 10vh;
+        }
+
+        #luk button {
+            padding: 5px 25px;
+            font-size: 30px;
+            background-color: #537491;
+            border: 2px solid black;
+        }
+
+        /************************ Header og footer ***********************/
+        header {
+            background-color: b ;
+            height: 30vh;
+            text-align: center
+        }
+        
+        
+
+        header h1 {
+            padding: 30px 0 10px;
+            margin: 0;
+            font-size: 30px;
+            background-color: black;
+            color: red;
+        }
+
+        footer {
+            background-color: red;
+            color: white;
+            font-family: arial;
+            text-align: center;
+        }
+
+        /************************ Media ****************************/
+        @media only screen and (max-width:550px) {
+            #meals {
+                grid-template-columns: auto;
+            }
+            
+            .meal {
+                border: 3px solid black;
+            }
+
+            .meal:nth-of-type(odd) {
+                background-color:lightskyblue;
+            }
+            .meal:nth-of-type(even) {
+                background-color:red;
+            }
+
+
+            header {
+                height: 25vh;
+            }
+
+            header h1 {
+                font-size: 60px;
+            }
+        }
+        
+        @media only screen and (min-width:550px) {
+            #meals {
+                grid-template-columns: auto auto;
+            }
+            
+            .meal {
+                border: 3px solid black;
+            }
+
+            .meal:nth-of-type(odd) {
+                background-color:lightskyblue;
+            }
+            .meal:nth-of-type(even) {
+                background-color:red;
+            }
+
+
+            header {
+                height: 25vh;
+            }
+
+            header h1 {
+                font-size: 60px;
+            }
+        }
+        
+        
+
+        @media only screen and (min-width:800px) {
+            #meals {
+                grid-template-columns: auto auto auto;
+                max-width: 1000px;
+                padding: 1vw;
+            }
+            
+            .meal{
+                background-color: lightskyblue;
+            }
+
+            .meal:nth-of-type(even) {
+                background-color: red;
+            }
+
+            header {
+                height: 25vh;
+            }
+
+            header h1 {
+                font-size: 70px;
+            }
+        }
+
+        /**KNAPPER**/
+        .filter {
+            cursor: pointer;
+            padding: 5px 15px;
+            border: 2px solid black;
+            background-color: blue;
+            color: white;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        
+        .chosen {
+            background-color: red;
+        }
+
+        .sortering {
+            cursor: pointer;
+            padding: 5px 5px;
+            background-color: lightcoral;
+            color: black;
+            margin: 5px 0;
+            
+            
+        }
+        
+        button .sortering p {
+            color: white;
+        }
+
+        .kryds {
+            padding: 5px 5px;
+            border: 0px solid black;
+            background-color: orange;
+            color: black;
+            margin: 5px 0;
+        }
+
+        .sortering_valgt {
+            border-bottom: 2px solid black;
+        }
+
+        .valgt {
+            background-color: black;
+            color: orange;
+        }
+        
+        
+    </style>
+    <!---------------HTML---------------->
+    <div id="overlay">
+        <div id="luk">
+            <button>X</button>
+        </div>
+        <div id="indhold">
+        </div>
+    </div>
+
+    <header>
+        <h1 id="logo">La Franzois</h1>
+        <nav id="menu">
+            <button class="filter chosen" data-ret="alle">Alle Retter</button>
+            <button class="filter" data-ret="forretter">Forretter</button>
+            <button class="filter" data-ret="hovedretter">Hovedretter</button>
+            <button class="filter" data-ret="desserter">Desserter</button>
+            <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
+            <button class="filter" data-ret="sideorders">Sideorders</button>
+            <div>
+                <button id="faldende" class="sortering">Dyreste Først</button>
+                <button id="stigende" class="sortering">Billigste Først</button>
+                <button id="fjern" class="sortering_valgt sortering">Ingen Sortering</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="meals"></section>
+    </main>
+    <footer>
+        <p>Frankriggade, 2300 København S.</p>
+        <p>Tlf: 88 88 88 88</p>
+        <p>E-mail: Frank@rig.dk</p>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", getJson);
+        console.log(getJson);
+        let meals;
+        let container = document.querySelector("#meals");
+        let dest = document.querySelector("#indhold");
+        let button = container.querySelector
+        let filter = "alle"
+
+        async function getJson() {
+            let myJson = await
+            fetch("franzois.json");
+            meals = await myJson.json();
+            showMeals();
+            document.querySelectorAll(".sortering").forEach(but => {
+                but.classList.remove("sortering_valgt")
+            })
+            this.classList.add("sortering_valgt");
+        }
+        
+
+        function showMeals() {
+            container.innerHTML = "";
+            meals.forEach(meal => {
+                if (filter == "alle" || filter == meal.kategori) {
+                    let template = `
+                        <article class="meal">
+                            <img src="imgs/small/${meal.billede}.jpg">
+                            <h2>${meal.navn}</h2>
+                            <p>${meal.kort}</p>
+                            <p>Pris: ${meal.pris}kr.</p>
+                            <button class="info">Se Mere</button>
+                        </article>
+                        `;
+                    container.insertAdjacentHTML("beforeend", template);
+                    container.lastElementChild.addEventListener("click", showMeal)
+
+                    function showMeal() {
+                        dest.innerHTML = `
+                            <figure class="popup-billede">
+                                <img src="imgs/large/${meal.billede}.jpg" alt="">
+                            </figure>
+                            <article class="popup-tekst">
+                                <h3>${meal.navn}</h3>
+                                <p>${meal.lang}</p>
+                                <p>Oprindelse: ${meal.oprindelse}</p>
+                                <p>Pris: ${meal.pris}dkk</p>
+                            </article>
+                        `;
+                        document.querySelector("#overlay").style.display = "block";
+                        document.querySelector("#luk").addEventListener("click", close)
+                    };
+
+                    function close() {
+                        document.querySelector("#overlay").style.display = "none";
+                    }
+                }
+            })
+        }
+
+        getJson();
+        document.querySelectorAll(".filter").forEach(but => {
+            but.addEventListener("click", filtrering);
+        })
+
+        function filtrering() {
+            document.querySelectorAll(".filter").forEach(but => {
+                but.classList.remove("chosen");
+            })
+            this.classList.add("chosen");
+            filter = this.getAttribute("data-ret");
+            console.log(filter)
+            showMeals();
+        }
+        async function stigende() {
+            document.querySelectorAll(".sortering").forEach(but => {
+                but.classList.remove("sortering_valgt")
+            })
+            this.classList.add("sortering_valgt");
+            let myJson = await fetch("franzois.json");
+            meals = await myJson.json();
+            meals.sort((h, l) => {
+                return (h.pris - l.pris);
+            })
+            showMeals();
+        }
+        async function faldende() {
+            document.querySelectorAll(".sortering").forEach(but => {
+                but.classList.remove("sortering_valgt")
+            })
+            this.classList.add("sortering_valgt");
+            let myJson = await fetch("franzois.json");
+            meals = await myJson.json();
+            meals.sort((h, l) => {
+                return (l.pris - h.pris);
+            })
+            showMeals();
+        }
+        document.querySelector("#faldende").addEventListener("click", faldende);
+        document.querySelector("#stigende").addEventListener("click", stigende);
+        document.querySelector("#fjern").addEventListener("click", getJson)
+    </script>
+
+</body>
+</head>
+</html>
